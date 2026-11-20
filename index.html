@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café de Patty · Manta</title>
+<meta name="description" content="Desayunos, almuerzos y bocaditos con sabor de casa en la ciudadela Universitaria, Manta. Haz tu pedido por WhatsApp.">
+<link rel="icon" href="img/taza.png">
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--vino:#5C2B2E;--oro:#F8AD3A;--tx:#1b1b1b;--gr:#6b6b6b;--ln:#ece6dd;--bg:#fffaf2}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:'Arialle','Arimo',Arial,sans-serif;color:var(--tx);background:#fff;line-height:1.5}
+a{color:inherit}
+.w{max-width:960px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--ln)}
+.hb{display:flex;align-items:center;gap:12px;height:56px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.04em;color:var(--vino);text-decoration:none;font-size:15px}
+.brand img{height:30px}
+nav{display:flex;gap:4px;overflow-x:auto;margin-left:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{white-space:nowrap;text-decoration:none;font-size:14px;padding:6px 10px;border-radius:99px;color:var(--vino)}
+nav a:hover{background:var(--bg)}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:99px;padding:12px 22px;text-decoration:none;background:var(--vino);color:#fff;font-size:15px}
+.btn.o{background:var(--oro);color:var(--vino)}
+.btn.l{background:none;color:var(--vino);border:1.5px solid var(--vino)}
+.btn:disabled{opacity:.4}
+.hero{background:var(--oro);color:var(--vino);padding:56px 0 64px}
+.hero img{height:84px;margin-bottom:12px}
+.kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;opacity:.8}
+h1{font-size:clamp(34px,7vw,56px);line-height:1.08;margin:8px 0 14px}
+.hero p{max-width:520px;font-size:18px;margin-bottom:24px}
+section{padding:56px 0}
+section.alt{background:var(--bg)}
+h2{font-size:clamp(26px,5vw,36px);color:var(--vino);margin:6px 0 10px;line-height:1.15}
+.lead{color:var(--gr);max-width:560px;margin-bottom:24px}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:28px}
+.cat{background:#fff;border:1px solid var(--ln);border-radius:16px;padding:20px 16px;text-decoration:none;color:var(--vino)}
+.cat b{display:block;font-size:18px}
+.cat span{font-size:13px;color:var(--gr)}
+.cat:hover{border-color:var(--vino)}
+.story{max-width:620px;font-size:17px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:none}
+.chip{font:inherit;font-size:14px;white-space:nowrap;border:1.5px solid var(--vino);background:#fff;color:var(--vino);border-radius:99px;padding:7px 14px;cursor:pointer}
+.chip.on{background:var(--vino);color:#fff}
+.row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln)}
+.row .n{flex:1}
+.row small{display:block;color:var(--gr);font-size:13px}
+.row .p{font-weight:700;color:var(--vino)}
+.tag{display:inline-block;background:var(--oro);color:var(--vino);font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.q{display:flex;align-items:center;gap:8px}
+.q button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--vino);background:#fff;color:var(--vino);font-size:18px;cursor:pointer;line-height:1}
+.add{font:inherit;font-size:14px;font-weight:700;border:1.5px solid var(--vino);background:#fff;color:var(--vino);border-radius:99px;padding:6px 14px;cursor:pointer}
+.card{background:var(--vino);color:#fff;border-radius:18px;padding:22px;margin:0 0 24px}
+.card h3{margin-bottom:6px}
+.card p{opacity:.85;margin-bottom:14px;font-size:15px}
+.note{font-size:13px;color:var(--gr);margin-top:12px}
+.bar{position:sticky;bottom:12px;margin-top:18px;display:flex;justify-content:center}
+.bar .btn{box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.ph{background:linear-gradient(135deg,var(--oro),#fbd08a);border-radius:16px;min-height:160px;display:flex;align-items:center;justify-content:center;color:var(--vino);font-size:14px;font-weight:700;opacity:.9;margin-bottom:20px}
+.grid2{display:grid;gap:24px}
+@media(min-width:720px){.cats{grid-template-columns:repeat(4,1fr)}.grid2{grid-template-columns:1fr 1fr}.hero{padding:88px 0}}
+form{display:grid;gap:14px;margin-top:8px}
+label{display:block;font-size:14px;font-weight:700;color:var(--vino)}
+input,select,textarea{display:block;width:100%;font:inherit;font-size:16px;margin-top:4px;padding:11px 12px;border:1.5px solid var(--ln);border-radius:12px;background:#fff}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--vino)}
+textarea{min-height:76px}
+.hid{display:none}
+dialog{border:0;border-radius:20px;width:min(520px,94vw);max-height:92vh;padding:22px;overflow:auto}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.dh{display:flex;justify-content:space-between;align-items:center}
+.x{border:0;background:none;font-size:28px;cursor:pointer;color:var(--vino)}
+.sum{background:var(--bg);border-radius:12px;padding:10px 14px;margin:10px 0}
+.sum .row{padding:8px 0}
+.tot{display:flex;justify-content:space-between;font-weight:700;padding-top:8px}
+.aviso{background:#fff3dc;border-left:4px solid var(--oro);padding:10px 12px;border-radius:8px;font-size:13px}
+footer{background:var(--vino);color:#fff;padding:36px 0;font-size:14px}
+footer a{color:var(--oro)}
+.info p{margin-bottom:10px}.info b{color:var(--vino)}
+iframe{width:100%;height:260px;border:0;border-radius:16px}
+</style>
+</head>
+<body>
+<header><div class="w hb">
+<a class="brand" href="#inicio"><img src="img/taza.png" alt=""><span>CAFÉ DE PATTY</span></a>
+<nav><a href="#menu">Menú</a><a href="#eventos">Eventos</a><a href="#togo">To Go</a><a href="#postres">Postres</a><a href="#visitanos">Visítanos</a></nav>
+</div></header>
+
+<main id="inicio">
+<div class="hero"><div class="w">
+<img src="img/taza.png" alt="Café de Patty">
+<div class="kick">Ciudadela Universitaria · Manta</div>
+<h1>¡Delicioso como en casa!</h1>
+<p>Desayunos, almuerzos y bocaditos con sabor de casa. Ven al local o pide para llevar y a domicilio.</p>
+<a class="btn" href="#menu">Hacer mi pedido</a>
+</div></div>
+
+<section><div class="w">
+<div class="kick" style="color:var(--gr)">Nuestra historia</div>
+<h2>Cocina de casa, ahora con local propio</h2>
+<p class="story">Patty y su hermano Beto siempre han cocinado con ese sabor que se siente como en casa. Familia, amigos y vecinos los animaron tanto que decidieron abrir su propio local: Café de Patty. Hoy seguimos cocinando igual, para que cada plato te sepa a hogar.</p>
+<div class="cats">
+<a class="cat" href="#menu"><b>Menú</b><span>Platos habituales y almuerzo del día</span></a>
+<a class="cat" href="#eventos"><b>Eventos</b><span>Local privado y catering</span></a>
+<a class="cat" href="#togo"><b>To Go</b><span>Congelados bajo pedido</span></a>
+<a class="cat" href="#postres"><b>Postres</b><span>Tortas y galletas personalizadas</span></a>
+</div></div></section>
+
+<section class="alt" id="menu"><div class="w">
+<div class="kick" style="color:var(--gr)">Menú</div>
+<h2>Lo que más piden</h2>
+<p class="lead">Elige tus platos, arma tu pedido y lo enviamos por WhatsApp a la cafetería.</p>
+<div class="card"><h3>Almuerzo del día</h3><p>El almuerzo cambia todos los días. Míralo en nuestras historias de Instagram y agrégalo a tu pedido.</p>
+<a class="btn o" href="https://www.instagram.com/cafedepattymanta" target="_blank" rel="noopener">Míralo aquí</a></div>
+<div class="chips" id="chips"></div>
+<div id="list"></div>
+<p class="note">Los precios no incluyen IVA.</p>
+<div class="bar"><button class="btn" id="vm" onclick="openCart('menu')" disabled>Ver mi pedido</button></div>
+</div></section>
+
+<section id="eventos"><div class="w grid2">
+<div><div class="kick" style="color:var(--gr)">Eventos y celebraciones</div>
+<h2>Celebra con nosotros</h2>
+<p class="lead">Organizamos eventos privados en la cafetería y llevamos el catering a donde lo necesites. Cuéntanos qué tienes en mente y te respondemos por WhatsApp.</p>
+<div class="ph">Foto del local</div></div>
+<div><form id="fe"></form></div>
+</div></section>
+
+<section class="alt" id="togo"><div class="w">
+<div class="kick" style="color:var(--gr)">To Go</div>
+<h2>Bocaditos ecuatorianos congelados</h2>
+<p class="lead">Para llevar a casa y disfrutar cuando quieras. Se preparan bajo pedido: elige una fecha a partir de 48 horas.</p>
+<div id="tg"></div>
+<p class="note">Cada paquete cuesta $6. Los precios no incluyen IVA.</p>
+<div class="bar"><button class="btn" id="vt" onclick="openCart('togo')" disabled>Ver mi pedido To Go</button></div>
+</div></section>
+
+<section id="postres"><div class="w">
+<div class="kick" style="color:var(--gr)">Postres</div>
+<h2>Tortas, galletas y cupcakes personalizados</h2>
+<p class="lead">Hechos bajo pedido según tu diseño, sabor y ocasión. Llena el formulario y te confirmamos el precio por WhatsApp.</p>
+<div class="grid2"><div><div class="ph">Foto de postres</div><div id="pl"></div></div>
+<div><form id="fp"></form></div></div>
+</div></section>
+
+<section class="alt" id="visitanos"><div class="w grid2">
+<div class="info"><div class="kick" style="color:var(--gr)">Visítanos</div><h2>Dónde estamos</h2>
+<p><b>Dirección</b><br>Calle U9 y Av. U4, ciudadela Universitaria, Manta</p>
+<p><b>Horario</b><br>Martes a domingo, de 8H30 a 15H30</p>
+<p><b>WhatsApp</b><br><a href="https://wa.me/593993589700">099 358 9700</a></p>
+<p><b>Redes</b><br><a href="https://www.instagram.com/cafedepattymanta" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/share/1GGN39kdvY/" target="_blank" rel="noopener">Facebook</a></p>
+<a class="btn" href="https://maps.app.goo.gl/km7Upg4cmXowSpAg9" target="_blank" rel="noopener">Cómo llegar</a></div>
+<div><div class="ph" style="min-height:260px">Foto de la fachada</div></div>
+</div></section>
+</main>
+<footer><div class="w">© Café de Patty · Manta, Ecuador · ¡Delicioso como en casa!</div></footer>
+
+<dialog id="dlg"></dialog>
+
+<script>
+const WA='593993589700';
+const IG='https://www.instagram.com/cafedepattymanta';
+const MENU=[
+['Desayunos',[['Desayuno americano',4.5],['Desayuno continental',4]]],
+['Almuerzos',[['Almuerzo semanal',6,'Ver el menú del día en Instagram'],['Almuerzo fin de semana',6.5,'Ver el menú del día en Instagram']]],
+['Huevos',[['Duros / fritos / pasados',2],['Fritos con jamón',2.7],['Fritos con tocino',3],['Revueltos naturales',2.2],['Revueltos con jamón / queso',3.9],['Revueltos con vegetales',2.7],['Omelet con jamón / queso',3.5],['Omelet con vegetales',3.5]]],
+['Piqueo',[['Empanada de queso',1.5],['Empanada de carne',1.75],['Pastelillo de pollo',1.75],['Corviche de pescado',1.25]]],
+['Plátano o maduro',[['Bolón de verde de queso',2.75],['Bolón de verde de chicharrón',3.25],['Bolón de verde mixto',3.8],['Bolón de maduro / queso / maní',2.5],['Tigrillo de queso',4],['Tigrillo de chicharrón',4.5],['Tigrillo mixto',5]]],
+['Típico de la casa',[['Bistec de lomo',7],['Bistec de pescado',7],['Bistec de hígado',6.5],['Bola a lo pobre (lomo / pescado / hígado)',7.5],['Bola a lo pobre montada',8],['Tigrillo a lo pobre',7.5],['Tigrillo a lo pobre montado',8]]],
+['Del mar',[['Ceviche de pescado (picudo)',6.5]]],
+['Bebidas',[['Café americano',1.5],['Café con leche',1.8],['Chocolate',2.5],['Té',1.5],['Agua',0.8],['Agua mineral',1],['Jugos naturales',1],['Gaseosa',1.5]]],
+['Postres',[['Tiramisú',3],['Galletas',0.75]]]
+];
+const TOGO=['Corviches','Pastelillos','Pan de almidón','Tortillas de maíz'].map(n=>[n,6,'Paquete · bajo pedido']);
+const cart={menu:{},togo:{}};
+const $=s=>document.querySelector(s);
+const money=n=>'$'+n.toFixed(2);
+let curCat=0;
+
+function rowHTML(t,id,it){
+ const q=(cart[t][id]||{}).q||0;
+ return `<div class="row"><div class="n">${it[0]}${t=='togo'?'<span class="tag">Bajo pedido</span>':''}${it[2]?`<small>${it[2]}</small>`:''}</div><span class="p">${money(it[1])}</span>`+
+ (q?`<div class="q"><button onclick="chg('${t}','${id}',-1)" aria-label="Quitar">−</button><b>${q}</b><button onclick="chg('${t}','${id}',1)" aria-label="Agregar">+</button></div>`:`<button class="add" onclick="chg('${t}','${id}',1)">Agregar</button>`)+`</div>`;
+}
+const ITEMS={};
+MENU.forEach((c,i)=>c[1].forEach((it,j)=>ITEMS['m'+i+'_'+j]=['menu',it]));
+TOGO.forEach((it,j)=>ITEMS['t'+j]=['togo',it]);
+function chg(t,id,d){
+ const it=ITEMS[id][1],o=cart[t][id]||{it,q:0};
+ o.q=Math.max(0,o.q+d);
+ if(o.q)cart[t][id]=o;else delete cart[t][id];
+ render();if($('#dlg').open&&$('#dlg').dataset.t==t)cartDlg(t,true);
+}
+function render(){
+ $('#chips').innerHTML=MENU.map((c,i)=>`<button class="chip ${i==curCat?'on':''}" onclick="curCat=${i};render()">${c[0]}</button>`).join('');
+ $('#list').innerHTML=MENU[curCat][1].map((it,j)=>rowHTML('menu','m'+curCat+'_'+j,it)).join('');
+ $('#tg').innerHTML=TOGO.map((it,j)=>rowHTML('togo','t'+j,it)).join('');
+ ['menu','togo'].forEach(t=>{const n=Object.values(cart[t]).reduce((a,o)=>a+o.q,0),b=$(t=='menu'?'#vm':'#vt');b.disabled=!n;b.textContent=(t=='menu'?'Ver mi pedido':'Ver mi pedido To Go')+(n?` (${n})`:'')});
+}
+const total=t=>Object.values(cart[t]).reduce((a,o)=>a+o.q*o.it[1],0);
+
+const HORAS=[];for(let h=8.5;h<=15;h+=.5){const H=Math.floor(h),M=h%1?'30':'00';HORAS.push(`${String(H).padStart(2,'0')}:${M}`)}
+const iso=d=>{const x=new Date();x.setDate(x.getDate()+d);return x.toLocaleDateString('sv-SE')};
+const F_ORD=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['entrega','Tipo de entrega','select',1,['Retiro en el local','Domicilio']],['dir','Dirección de entrega','text',0,0,1],['fecha','Fecha de entrega','date',1],['hora','Hora deseada','select',1,HORAS],['obs','Observaciones','textarea',0],['pago','Método de pago','select',1,['Efectivo','Transferencia']]];
+const F_EVT=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['tipo','¿Qué necesitas?','select',1,['Evento en la cafetería','Catering (en mi lugar)']],['ocasion','Ocasión (cumpleaños, reunión...)','text',1],['personas','Número de personas','number',1],['fecha','Fecha','date',1],['hora','Hora','select',1,HORAS],['lugar','Dirección del evento (solo catering)','text',0],['presu','Presupuesto aproximado','text',0],['obs','Observaciones','textarea',0]];
+const F_POS=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['prod','¿Qué quieres pedir?','select',1,['Torta personalizada','Postre personalizado','Galletas personalizadas','Cupcakes personalizados']],['cant','Cantidad o porciones','text',1],['ocasion','Ocasión y diseño o texto deseado','textarea',1],['sabor','Sabor o relleno preferido','text',0],['fecha','Fecha de entrega','date',1],['entrega','Tipo de entrega','select',1,['Retiro en el local','Domicilio']],['dir','Dirección de entrega','text',0,0,1],['presu','Presupuesto aproximado','text',0],['obs','Observaciones','textarea',0]];
+
+function fieldsHTML(F,minDays){
+ return F.map(f=>{const[id,l,t,r,o,dep]=f;let c;
+  if(t=='select')c=`<select name="${id}" ${r?'required':''}>${o.map(x=>`<option>${x}</option>`).join('')}</select>`;
+  else if(t=='textarea')c=`<textarea name="${id}"></textarea>`;
+  else c=`<input name="${id}" type="${t}" ${r?'required':''} ${t=='date'?`min="${iso(minDays)}"`:''} ${t=='number'?'min="1"':''} ${t=='tel'?'inputmode="tel"':''}>`;
+  return `<label ${dep?'class="hid" data-dir':''}>${l}${c}</label>`}).join('');
+}
+function wire(form,minDays){
+ const en=form.elements.entrega,dir=form.querySelector('[data-dir]');
+ if(en)en.onchange=()=>{const d=en.value=='Domicilio';dir.classList.toggle('hid',!d);dir.querySelector('input').required=d};
+ const fe=form.elements.fecha;
+ if(fe)fe.onchange=()=>{const d=new Date(fe.value+'T12:00');fe.setCustomValidity(d.getDay()==1?'Cerramos los lunes. Elige de martes a domingo.':'')};
+}
+function wa(title,pairs,extra){
+ let m=`*${title}* – Café de Patty\n\n`+pairs.filter(p=>p[1]).map(p=>`*${p[0]}:* ${p[1]}`).join('\n');
+ if(extra)m+='\n'+extra;
+ const u='https://wa.me/'+WA+'?text='+encodeURIComponent(m);
+ window.open(u,'_blank');return u;
+}
+function pairsOf(F,fd){return F.map(f=>[f[1],fd.get(f[0])])}
+
+function simpleForm(sel,F,title,btn,after){
+ const f=$(sel);f.innerHTML=fieldsHTML(F,1)+`<button class="btn" type="submit">${btn}</button><p class="note">Al enviar se abrirá WhatsApp con tu solicitud. Te responderemos por ahí para confirmar detalles y precio.</p>`;
+ wire(f,1);
+ f.onsubmit=e=>{e.preventDefault();const u=wa(title,pairsOf(F,new FormData(f)));f.insertAdjacentHTML('beforeend',`<p class="aviso">Se abrió WhatsApp. Presiona “enviar” para que lleguen tus datos. Si no se abrió, <a href="${u}" target="_blank">toca aquí</a>.</p>`)};
+}
+
+function cartDlg(t,keep){
+ const d=$('#dlg'),items=Object.values(cart[t]);
+ if(!items.length){d.close();return}
+ const id=t=='menu'?'m':'t';
+ const sum=Object.entries(cart[t]).map(([k,o])=>`<div class="row"><div class="n">${o.q} × ${o.it[0]}</div><span class="p">${money(o.q*o.it[1])}</span><div class="q"><button type="button" onclick="chg('${t}','${k}',-1)">−</button><button type="button" onclick="chg('${t}','${k}',1)">+</button></div></div>`).join('');
+ const saved=keep?new FormData($('#fo')):null;
+ d.dataset.t=t;
+ d.innerHTML=`<div class="dh"><h2 style="margin:0">Tu pedido${t=='togo'?' To Go':''}</h2><button class="x" onclick="dlg.close()" aria-label="Cerrar">×</button></div>
+ <div class="sum">${sum}<div class="tot"><span>Subtotal</span><span>${money(total(t))}</span></div><small class="note">Sin IVA ni envío.</small></div>
+ ${t=='togo'?'<p class="aviso">Los congelados se preparan bajo pedido: la fecha de entrega es a partir de 48 horas.</p>':''}
+ <form id="fo">${fieldsHTML(F_ORD,t=='togo'?2:0)}<p class="aviso">El costo del servicio de delivery no está incluido en los precios de nuestros productos. El valor del envío se calcula según la ubicación del cliente y se confirma antes de finalizar el pedido.</p><button class="btn o" type="submit">Enviar pedido por WhatsApp</button></form>`;
+ const f=$('#fo');wire(f,t=='togo'?2:0);
+ if(saved)for(const[k,v]of saved.entries()){if(f.elements[k])f.elements[k].value=v}
+ if(f.elements.entrega)f.elements.entrega.onchange();
+ f.onsubmit=e=>{e.preventDefault();
+  const lines=Object.values(cart[t]).map(o=>`• ${o.q} × ${o.it[0]} – ${money(o.q*o.it[1])}`).join('\n');
+  const fd=new FormData(f),P=pairsOf(F_ORD,fd);
+  P.splice(P.findIndex(p=>p[0]=='Observaciones'),0,['Productos','\n'+lines]);
+  const u=wa(t=='togo'?'Pedido To Go (congelados)':'Pedido del menú',P,`\n*Subtotal (sin IVA ni envío):* ${money(total(t))}`);
+  f.insertAdjacentHTML('beforeend',`<p class="aviso">Se abrió WhatsApp. Presiona “enviar” para que la cafetería reciba tu pedido y te confirme el total con el envío. Si no se abrió, <a href="${u}" target="_blank">toca aquí</a>.</p>`);
+ };
+}
+function openCart(t){cartDlg(t);$('#dlg').showModal()}
+const dlg=$('#dlg');dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+
+simpleForm('#fe',F_EVT,'Solicitud de evento / catering','Enviar solicitud por WhatsApp');
+simpleForm('#fp',F_POS,'Pedido de postre personalizado','Enviar pedido por WhatsApp');
+$('#pl').innerHTML='<p class="note">Los precios de tortas y postres personalizados dependen del diseño y del tipo; los confirmamos contigo por WhatsApp.</p>';
+render();
+</script>
+</body>
+</html>
