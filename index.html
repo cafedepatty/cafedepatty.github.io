@@ -251,11 +251,22 @@ function fieldsHTML(F,minDays){
   else c=`<input name="${id}" type="${t}" ${r?'required':''} ${t=='date'?`min="${iso(minDays)}"`:''} ${t=='number'?'min="1"':''} ${t=='tel'?'inputmode="tel"':''}>`;
   return `<label ${dep?'class="hid" data-dir':''}>${l}${c}</label>`}).join('');
 }
+function slotMin(x){const[a,b]=x.split(':');return +a*60+ +b}
+function slotsToday(){const n=new Date(),m=n.getHours()*60+n.getMinutes();return HORAS.filter(x=>slotMin(x)>m)}
+function syncHours(f){
+ const h=f.elements.hora,fe=f.elements.fecha;if(!h||!fe)return 1;
+ if(!h._all)h._all=[...h.options].map(o=>o.value);
+ const cur=h.value,n=new Date(),m=n.getHours()*60+n.getMinutes();
+ const list=fe.value===iso(0)?h._all.filter(x=>slotMin(x)>m):h._all;
+ h.innerHTML=list.map(x=>`<option>${x}</option>`).join('');
+ if(list.includes(cur))h.value=cur;
+ return list.length;
+}
 function wire(form,minDays){
  const en=form.elements.entrega,dir=form.querySelector('[data-dir]');
  if(en)en.onchange=()=>{const d=en.value=='Domicilio';dir.classList.toggle('hid',!d);dir.querySelector('input').required=d};
  const fe=form.elements.fecha;
- if(fe)fe.onchange=()=>{const d=new Date(fe.value+'T12:00');fe.setCustomValidity(d.getDay()==1?'Cerramos los lunes. Elige de martes a domingo.':'')};
+ if(fe)fe.onchange=()=>{const d=new Date(fe.value+'T12:00');let msg=d.getDay()==1?'Cerramos los lunes. Elige de martes a domingo.':'';const n=syncHours(form);if(!msg&&n===0)msg='Hoy ya no hay horarios disponibles. Elige otra fecha.';fe.setCustomValidity(msg)};
 }
 function wa(title,pairs,extra){
  let m=`*${title}* – Café de Patty\n\n`+pairs.filter(p=>p[1]).map(p=>`*${p[0]}:* ${p[1]}`).join('\n');
@@ -265,9 +276,9 @@ function wa(title,pairs,extra){
 }
 function pairsOf(F,fd){return F.map(f=>[f[1],fd.get(f[0])])}
 
-function simpleForm(sel,F,title,btn,after){
- const f=$(sel);f.innerHTML=fieldsHTML(F,1)+`<button class="btn" type="submit">${btn}</button><p class="note">Al enviar se abrirá WhatsApp con tu solicitud. Te responderemos por ahí para confirmar detalles y precio.</p>`;
- wire(f,1);
+function simpleForm(sel,F,title,btn,minDays){
+ const f=$(sel);f.innerHTML=fieldsHTML(F,minDays)+`<button class="btn" type="submit">${btn}</button><p class="note">Al enviar se abrirá WhatsApp con tu solicitud. Te responderemos por ahí para confirmar detalles y precio.</p>`;
+ wire(f,minDays);
  f.onsubmit=e=>{e.preventDefault();const u=wa(title,pairsOf(F,new FormData(f)));f.insertAdjacentHTML('beforeend',`<p class="aviso">Se abrió WhatsApp. Presiona “enviar” para que lleguen tus datos. Si no se abrió, <a href="${u}" target="_blank">toca aquí</a>.</p>`)};
 }
 
@@ -278,12 +289,14 @@ function cartDlg(t,keep){
  const sum=Object.entries(cart[t]).map(([k,o])=>`<div class="row"><div class="n">${o.q} × ${o.it[0]}</div><span class="p">${money(o.q*o.it[1])}</span><div class="q"><button type="button" onclick="chg('${t}','${k}',-1)">−</button><button type="button" onclick="chg('${t}','${k}',1)">+</button></div></div>`).join('');
  const saved=keep?new FormData($('#fo')):null;
  d.dataset.t=t;
+ const minD=t=='togo'?2:(slotsToday().length?0:1);
  d.innerHTML=`<div class="dh"><h2 style="margin:0">Tu pedido${t=='togo'?' To Go':''}</h2><button class="x" onclick="dlg.close()" aria-label="Cerrar">×</button></div>
  <div class="sum">${sum}<div class="tot"><span>Subtotal</span><span>${money(total(t))}</span></div><small class="note">Sin IVA ni envío.</small></div>
  ${t=='togo'?'<p class="aviso">Los congelados se preparan bajo pedido: la fecha de entrega es a partir de 48 horas.</p>':''}
- <form id="fo">${fieldsHTML(F_ORD,t=='togo'?2:0)}<p class="aviso">El costo del servicio de delivery no está incluido en los precios de nuestros productos. El valor del envío se calcula según la ubicación del cliente y se confirma antes de finalizar el pedido.</p><button class="btn o" type="submit">Enviar pedido por WhatsApp</button></form>`;
- const f=$('#fo');wire(f,t=='togo'?2:0);
- if(saved)for(const[k,v]of saved.entries()){if(f.elements[k])f.elements[k].value=v}
+ <form id="fo">${fieldsHTML(F_ORD,minD)}<p class="aviso">El costo del servicio de delivery no está incluido en los precios de nuestros productos. El valor del envío se calcula según la ubicación del cliente y se confirma antes de finalizar el pedido.</p><button class="btn o" type="submit">Enviar pedido por WhatsApp</button></form>`;
+ const f=$('#fo');wire(f,minD);
+ if(saved)for(const[k,v]of saved.entries()){if(f.elements[k]){f.elements[k].value=v;if(k=='fecha')syncHours(f)}}
+ if(f.elements.fecha.value)f.elements.fecha.onchange();
  if(f.elements.entrega)f.elements.entrega.onchange();
  f.onsubmit=e=>{e.preventDefault();
   const lines=Object.values(cart[t]).map(o=>`• ${o.q} × ${o.it[0]} – ${money(o.q*o.it[1])}`).join('\n');
@@ -297,8 +310,8 @@ function zoom(el){$('#picimg').src=el.src;$('#picimg').alt=el.alt;$('#pic').show
 function openCart(t){cartDlg(t);$('#dlg').showModal()}
 const dlg=$('#dlg');dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 
-simpleForm('#fe',F_EVT,'Solicitud de evento / catering','Enviar solicitud por WhatsApp');
-simpleForm('#fp',F_POS,'Pedido de postre personalizado','Enviar pedido por WhatsApp');
+simpleForm('#fe',F_EVT,'Solicitud de evento / catering','Enviar solicitud por WhatsApp',2);
+simpleForm('#fp',F_POS,'Pedido de postre personalizado','Enviar pedido por WhatsApp',4);
 $('#pl').innerHTML='<p class="note">Los precios de tortas y postres personalizados dependen del diseño y del tipo; los confirmamos contigo por WhatsApp.</p>';
 render();
 </script>
