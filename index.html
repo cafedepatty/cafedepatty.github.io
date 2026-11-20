@@ -78,7 +78,9 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 footer{background:var(--vino);color:#fff;padding:36px 0;font-size:14px}
 footer a{color:var(--oro)}
 .info p{margin-bottom:10px}.info b{color:var(--vino)}
-.th{width:64px;height:64px;border-radius:12px;object-fit:cover;flex:none}
+.th{width:76px;height:76px;border-radius:14px;object-fit:cover;flex:none;cursor:zoom-in;background:var(--bg)}
+#pic{padding:0;width:min(640px,94vw);background:none;overflow:hidden}
+#pic img{width:100%;display:block;border-radius:20px}
 .gal{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-bottom:20px}
 .gal img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;display:block}
 .gal.g3{grid-template-columns:repeat(3,1fr)}.gal.g3 img{aspect-ratio:1}
@@ -162,16 +164,17 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <footer><div class="w">© Café de Patty · Manta, Ecuador · ¡Delicioso como en casa!</div></footer>
 
 <dialog id="dlg"></dialog>
+<dialog id="pic" onclick="this.close()"><img id="picimg" alt=""></dialog>
 
 <script>
 const WA='593993589700';
 const IG='https://www.instagram.com/cafedepattymanta';
 const MENU=[
-['Desayunos',[['Desayuno americano',4.5],['Desayuno continental',4]]],
+['Desayunos',[['Desayuno americano',4.5,'','foto-desayuno-americano.jpg'],['Desayuno continental',4,'','foto-desayuno-continental.jpg']]],
 ['Almuerzos',[['Almuerzo semanal',6,'Ver el menú del día en Instagram'],['Almuerzo fin de semana',6.5,'Ver el menú del día en Instagram']]],
 ['Huevos',[['Duros / fritos / pasados',2],['Fritos con jamón',2.7],['Fritos con tocino',3],['Revueltos naturales',2.2],['Revueltos con jamón / queso',3.9],['Revueltos con vegetales',2.7],['Omelet con jamón / queso',3.5],['Omelet con vegetales',3.5]]],
 ['Piqueo',[['Empanada de queso',1.5],['Empanada de carne',1.75],['Pastelillo de pollo',1.75],['Corviche de pescado',1.25]]],
-['Plátano o maduro',[['Bolón de verde de queso',2.75],['Bolón de verde de chicharrón',3.25],['Bolón de verde mixto',3.8],['Bolón de maduro / queso / maní',2.5],['Tigrillo de queso',4],['Tigrillo de chicharrón',4.5],['Tigrillo mixto',5]]],
+['Plátano o maduro',[['Bolón de verde de queso',2.75,'','foto-bolon-queso.jpg'],['Bolón de verde de chicharrón',3.25,'','foto-bolon-chicharron.jpg'],['Bolón de verde mixto',3.8,'','foto-bolon-mixto.jpg'],['Bolón de maduro / queso / maní',2.5,'','foto-bolon-maduro.jpg'],['Tigrillo de queso',4,'','foto-tigrillo-queso.jpg'],['Tigrillo de chicharrón',4.5,'','foto-tigrillo-chicharron.jpg'],['Tigrillo mixto',5,'','foto-tigrillo-mixto.jpg']]],
 ['Típico de la casa',[['Bistec de lomo',7],['Bistec de pescado',7],['Bistec de hígado',6.5],['Bola a lo pobre (lomo / pescado / hígado)',7.5],['Bola a lo pobre montada',8],['Tigrillo a lo pobre',7.5],['Tigrillo a lo pobre montado',8]]],
 ['Del mar',[['Ceviche de pescado (picudo)',6.5]]],
 ['Bebidas',[['Café americano',1.5],['Café con leche',1.8],['Chocolate',2.5],['Té',1.5],['Agua',0.8],['Agua mineral',1],['Jugos naturales',1],['Gaseosa',1.5]]],
@@ -185,7 +188,7 @@ let curCat=0;
 
 function rowHTML(t,id,it){
  const q=(cart[t][id]||{}).q||0;
- return `<div class="row">${it[3]?`<img class="th" src="${it[3]}" alt="${it[0]}" loading="lazy">`:''}<div class="n">${it[0]}${t=='togo'?'<span class="tag">Bajo pedido</span>':''}${it[2]?`<small>${it[2]}</small>`:''}</div><span class="p">${money(it[1])}</span>`+
+ return `<div class="row">${it[3]?`<img class="th" src="${it[3]}" alt="${it[0]}" loading="lazy" onclick="zoom(this)">`:''}<div class="n">${it[0]}${t=='togo'?'<span class="tag">Bajo pedido</span>':''}${it[2]?`<small>${it[2]}</small>`:''}</div><span class="p">${money(it[1])}</span>`+
  (q?`<div class="q"><button onclick="chg('${t}','${id}',-1)" aria-label="Quitar">−</button><b>${q}</b><button onclick="chg('${t}','${id}',1)" aria-label="Agregar">+</button></div>`:`<button class="add" onclick="chg('${t}','${id}',1)">Agregar</button>`)+`</div>`;
 }
 const ITEMS={};
@@ -260,6 +263,7 @@ function cartDlg(t,keep){
   f.insertAdjacentHTML('beforeend',`<p class="aviso">Se abrió WhatsApp. Presiona “enviar” para que la cafetería reciba tu pedido y te confirme el total con el envío. Si no se abrió, <a href="${u}" target="_blank">toca aquí</a>.</p>`);
  };
 }
+function zoom(el){$('#picimg').src=el.src;$('#picimg').alt=el.alt;$('#pic').showModal()}
 function openCart(t){cartDlg(t);$('#dlg').showModal()}
 const dlg=$('#dlg');dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 
