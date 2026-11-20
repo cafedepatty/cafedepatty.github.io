@@ -86,7 +86,16 @@ footer a{color:var(--oro)}
 .gal img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;display:block}
 .gal.g3{grid-template-columns:repeat(3,1fr)}.gal.g3 img{aspect-ratio:1}
 .fach{width:100%;border-radius:16px;display:block}
-iframe{width:100%;height:260px;border:0;border-radius:16px}
+.wafab{position:fixed;right:16px;bottom:16px;z-index:15;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.fav{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.fc{background:#fff;border:1px solid var(--ln);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.fc .fi{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;cursor:zoom-in}
+.fc .fp{aspect-ratio:4/3;background:linear-gradient(135deg,var(--oro),#fbd08a);display:flex;align-items:center;justify-content:center}
+.fc .fp img{height:46%;opacity:.55}
+.fc .fb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.fc .fb b{font-size:17px;color:var(--vino)}
+.fc .fb .ft{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+iframe{width:100%;height:320px;margin-top:28px;border:0;border-radius:16px}
 </style>
 </head>
 <body>
@@ -115,7 +124,14 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <a class="cat" href="#postres"><b>Postres</b><span>Tortas y galletas personalizadas</span></a>
 </div></div></section>
 
-<section class="alt" id="menu"><div class="w">
+<section class="alt" id="favoritos"><div class="w">
+<div class="kick" style="color:var(--gr)">Favoritos de Patty</div>
+<h2>Lo que nadie se pierde</h2>
+<p class="lead">Los platos que más se piden en la casa. Agrégalos a tu pedido con un toque.</p>
+<div class="fav" id="fav"></div>
+</div></section>
+
+<section id="menu"><div class="w">
 <div class="kick" style="color:var(--gr)">Menú</div>
 <h2>Lo que más piden</h2>
 <p class="lead">Elige tus platos, arma tu pedido y lo enviamos por WhatsApp a la cafetería.</p>
@@ -127,15 +143,16 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <div class="bar"><button class="btn" id="vm" onclick="openCart('menu')" disabled>Ver mi pedido</button></div>
 </div></section>
 
-<section id="eventos"><div class="w grid2">
+<section class="alt" id="eventos"><div class="w grid2">
 <div><div class="kick" style="color:var(--gr)">Eventos y celebraciones</div>
 <h2>Celebra con nosotros</h2>
 <p class="lead">Organizamos eventos privados en la cafetería y llevamos el catering a donde lo necesites. Cuéntanos qué tienes en mente y te respondemos por WhatsApp.</p>
+<p class="note" style="margin:-12px 0 20px">Los eventos pueden ser fuera del horario de la cafetería: puedes elegir hora entre las 8H30 y las 18H00.</p>
 <div class="gal"><img src="foto-salon-1.jpg" alt="Salón de Café de Patty" loading="lazy"><img src="foto-salon-2.jpg" alt="Salón de Café de Patty con mesas de madera y flores" loading="lazy"></div></div>
 <div><form id="fe"></form></div>
 </div></section>
 
-<section class="alt" id="togo"><div class="w">
+<section id="togo"><div class="w">
 <div class="kick" style="color:var(--gr)">To Go</div>
 <h2>Bocaditos ecuatorianos congelados</h2>
 <p class="lead">Para llevar a casa y disfrutar cuando quieras. Se preparan bajo pedido: elige una fecha a partir de 48 horas.</p>
@@ -144,7 +161,7 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <div class="bar"><button class="btn" id="vt" onclick="openCart('togo')" disabled>Ver mi pedido To Go</button></div>
 </div></section>
 
-<section id="postres"><div class="w">
+<section class="alt" id="postres"><div class="w">
 <div class="kick" style="color:var(--gr)">Postres</div>
 <h2>Tortas, galletas y cupcakes personalizados</h2>
 <p class="lead">Hechos bajo pedido según tu diseño, sabor y ocasión. Llena el formulario y te confirmamos el precio por WhatsApp.</p>
@@ -152,7 +169,7 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <div><form id="fp"></form></div></div>
 </div></section>
 
-<section class="alt" id="visitanos"><div class="w grid2">
+<section id="visitanos"><div class="w"><div class="grid2">
 <div class="info"><div class="kick" style="color:var(--gr)">Visítanos</div><h2>Dónde estamos</h2>
 <p><b>Dirección</b><br>Calle U9 y Av. U4, ciudadela Universitaria, Manta</p>
 <p><b>Horario</b><br>Martes a domingo, de 8H30 a 15H30</p>
@@ -160,10 +177,13 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <p><b>Redes</b><br><a href="https://www.instagram.com/cafedepattymanta" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/share/1GGN39kdvY/" target="_blank" rel="noopener">Facebook</a></p>
 <a class="btn" href="https://maps.app.goo.gl/km7Upg4cmXowSpAg9" target="_blank" rel="noopener">Cómo llegar</a></div>
 <div><img class="fach" src="foto-fachada.jpg" alt="Fachada de Café de Patty en la ciudadela Universitaria" loading="lazy"></div>
+</div>
+<iframe title="Mapa de Café de Patty" src="https://maps.google.com/maps?q=-0.9483375,-80.7465602&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div></section>
 </main>
 <footer><div class="w">© Café de Patty · Manta, Ecuador · ¡Delicioso como en casa!</div></footer>
 
+<a class="wafab" href="https://wa.me/593993589700?text=Hola%2C%20quisiera%20hacer%20una%20consulta" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 <dialog id="dlg"></dialog>
 <dialog id="pic" onclick="this.close()"><img id="picimg" alt=""></dialog>
 
@@ -181,6 +201,7 @@ const MENU=[
 ['Postres',[['Tiramisú',3],['Galletas',0.75]]]
 ];
 const TOGO=[['Corviches','foto-corviches.jpg'],['Pastelillos','foto-pastelillos.jpg'],['Pan de almidón','foto-pan-almidon.jpg'],['Tortillas de maíz','foto-tortillas-maiz.jpg']].map(a=>[a[0],6,'Paquete · bajo pedido',a[1]]);
+const FAV=['Tigrillo mixto','Bola a lo pobre montada','Ceviche de pescado (picudo)'];
 const cart={menu:{},togo:{}};
 const $=s=>document.querySelector(s);
 const money=n=>'$'+n.toFixed(2);
@@ -194,13 +215,21 @@ function rowHTML(t,id,it){
 const ITEMS={};
 MENU.forEach((c,i)=>c[1].forEach((it,j)=>ITEMS['m'+i+'_'+j]=['menu',it]));
 TOGO.forEach((it,j)=>ITEMS['t'+j]=['togo',it]);
+const ID={};Object.entries(ITEMS).forEach(([k,v])=>{if(v[0]=='menu')ID[v[1][0]]=k});
 function chg(t,id,d){
  const it=ITEMS[id][1],o=cart[t][id]||{it,q:0};
  o.q=Math.max(0,o.q+d);
  if(o.q)cart[t][id]=o;else delete cart[t][id];
  render();if($('#dlg').open&&$('#dlg').dataset.t==t)cartDlg(t,true);
 }
+function favHTML(n){
+ const id=ID[n],it=ITEMS[id][1],q=(cart.menu[id]||{}).q||0;
+ const pic=it[3]?`<img class="fi" src="${it[3]}" alt="${it[0]}" loading="lazy" onclick="zoom(this)">`:`<div class="fp"><img src="taza.png" alt=""></div>`;
+ const act=q?`<div class="q"><button onclick="chg('menu','${id}',-1)" aria-label="Quitar">−</button><b>${q}</b><button onclick="chg('menu','${id}',1)" aria-label="Agregar">+</button></div>`:`<button class="add" onclick="chg('menu','${id}',1)">Agregar</button>`;
+ return `<div class="fc">${pic}<div class="fb"><b>${it[0]}</b><div class="ft"><span class="p" style="font-weight:700;color:var(--vino)">${money(it[1])}</span>${act}</div></div></div>`;
+}
 function render(){
+ $('#fav').innerHTML=FAV.map(favHTML).join('');
  $('#chips').innerHTML=MENU.map((c,i)=>`<button class="chip ${i==curCat?'on':''}" onclick="curCat=${i};render()">${c[0]}</button>`).join('');
  $('#list').innerHTML=MENU[curCat][1].map((it,j)=>rowHTML('menu','m'+curCat+'_'+j,it)).join('');
  $('#tg').innerHTML=TOGO.map((it,j)=>rowHTML('togo','t'+j,it)).join('');
@@ -210,9 +239,10 @@ const total=t=>Object.values(cart[t]).reduce((a,o)=>a+o.q*o.it[1],0);
 
 const HORAS=[];for(let h=8.5;h<=15;h+=.5){const H=Math.floor(h),M=h%1?'30':'00';HORAS.push(`${String(H).padStart(2,'0')}:${M}`)}
 const iso=d=>{const x=new Date();x.setDate(x.getDate()+d);return x.toLocaleDateString('sv-SE')};
+const HORAS_EV=[];for(let h=8.5;h<=18;h+=.5){const H=Math.floor(h),M=h%1?'30':'00';HORAS_EV.push(`${String(H).padStart(2,'0')}:${M}`)}
 const F_ORD=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['entrega','Tipo de entrega','select',1,['Retiro en el local','Domicilio']],['dir','Dirección de entrega','text',0,0,1],['fecha','Fecha de entrega','date',1],['hora','Hora deseada','select',1,HORAS],['obs','Observaciones','textarea',0],['pago','Método de pago','select',1,['Efectivo','Transferencia']]];
-const F_EVT=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['tipo','¿Qué necesitas?','select',1,['Evento en la cafetería','Catering (en mi lugar)']],['ocasion','Ocasión (cumpleaños, reunión...)','text',1],['personas','Número de personas','number',1],['fecha','Fecha','date',1],['hora','Hora','select',1,HORAS],['lugar','Dirección del evento (solo catering)','text',0],['presu','Presupuesto aproximado','text',0],['obs','Observaciones','textarea',0]];
-const F_POS=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['prod','¿Qué quieres pedir?','select',1,['Torta personalizada','Postre personalizado','Galletas personalizadas','Cupcakes personalizados']],['cant','Cantidad o porciones','text',1],['ocasion','Ocasión y diseño o texto deseado','textarea',1],['sabor','Sabor o relleno preferido','text',0],['fecha','Fecha de entrega','date',1],['entrega','Tipo de entrega','select',1,['Retiro en el local','Domicilio']],['dir','Dirección de entrega','text',0,0,1],['presu','Presupuesto aproximado','text',0],['obs','Observaciones','textarea',0]];
+const F_EVT=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['tipo','¿Qué necesitas?','select',1,['Servicio de catering','Evento privado en nuestro local','Otro tipo de servicio']],['ocasion','Ocasión (cumpleaños, reunión...)','text',1],['personas','Número de personas','number',1],['fecha','Fecha','date',1],['hora','Hora','select',1,HORAS_EV],['lugar','Dirección del evento (si es catering)','text',0],['presu','Presupuesto aproximado','text',0],['obs','Cuéntanos más detalles','textarea',0]];
+const F_POS=[['nombre','Nombre','text',1],['tel','Teléfono','tel',1],['prod','¿Qué quieres pedir?','select',1,['Torta','Postre','Galleta','Cupcake']],['cant','Cantidad o porciones','text',1],['ocasion','Ocasión y diseño o texto deseado','textarea',1],['sabor','Sabor o relleno preferido','text',0],['fecha','Fecha de entrega','date',1],['entrega','Tipo de entrega','select',1,['Retiro en el local','Domicilio']],['dir','Dirección de entrega','text',0,0,1],['presu','Presupuesto aproximado','text',0],['obs','Observaciones','textarea',0]];
 
 function fieldsHTML(F,minDays){
  return F.map(f=>{const[id,l,t,r,o,dep]=f;let c;
