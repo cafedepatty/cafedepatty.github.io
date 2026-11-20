@@ -78,6 +78,11 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
 footer{background:var(--vino);color:#fff;padding:36px 0;font-size:14px}
 footer a{color:var(--oro)}
 .info p{margin-bottom:10px}.info b{color:var(--vino)}
+.th{width:64px;height:64px;border-radius:12px;object-fit:cover;flex:none}
+.gal{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-bottom:20px}
+.gal img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;display:block}
+.gal.g3{grid-template-columns:repeat(3,1fr)}.gal.g3 img{aspect-ratio:1}
+.fach{width:100%;border-radius:16px;display:block}
 iframe{width:100%;height:260px;border:0;border-radius:16px}
 </style>
 </head>
@@ -123,7 +128,7 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <div><div class="kick" style="color:var(--gr)">Eventos y celebraciones</div>
 <h2>Celebra con nosotros</h2>
 <p class="lead">Organizamos eventos privados en la cafetería y llevamos el catering a donde lo necesites. Cuéntanos qué tienes en mente y te respondemos por WhatsApp.</p>
-<div class="ph">Foto del local</div></div>
+<div class="gal"><img src="foto-salon-1.jpg" alt="Salón de Café de Patty" loading="lazy"><img src="foto-salon-2.jpg" alt="Salón de Café de Patty con mesas de madera y flores" loading="lazy"></div></div>
 <div><form id="fe"></form></div>
 </div></section>
 
@@ -140,7 +145,7 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <div class="kick" style="color:var(--gr)">Postres</div>
 <h2>Tortas, galletas y cupcakes personalizados</h2>
 <p class="lead">Hechos bajo pedido según tu diseño, sabor y ocasión. Llena el formulario y te confirmamos el precio por WhatsApp.</p>
-<div class="grid2"><div><div class="ph">Foto de postres</div><div id="pl"></div></div>
+<div class="grid2"><div><div class="gal g3"><img src="foto-galletas-1.jpg" alt="Galletas decoradas navideñas" loading="lazy"><img src="foto-galletas-2.jpg" alt="Galletas decoradas de Halloween" loading="lazy"><img src="foto-galletas-3.jpg" alt="Galletas decoradas de fantasmas y gatos" loading="lazy"></div><div id="pl"></div></div>
 <div><form id="fp"></form></div></div>
 </div></section>
 
@@ -151,7 +156,7 @@ iframe{width:100%;height:260px;border:0;border-radius:16px}
 <p><b>WhatsApp</b><br><a href="https://wa.me/593993589700">099 358 9700</a></p>
 <p><b>Redes</b><br><a href="https://www.instagram.com/cafedepattymanta" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/share/1GGN39kdvY/" target="_blank" rel="noopener">Facebook</a></p>
 <a class="btn" href="https://maps.app.goo.gl/km7Upg4cmXowSpAg9" target="_blank" rel="noopener">Cómo llegar</a></div>
-<div><div class="ph" style="min-height:260px">Foto de la fachada</div></div>
+<div><img class="fach" src="foto-fachada.jpg" alt="Fachada de Café de Patty en la ciudadela Universitaria" loading="lazy"></div>
 </div></section>
 </main>
 <footer><div class="w">© Café de Patty · Manta, Ecuador · ¡Delicioso como en casa!</div></footer>
@@ -172,7 +177,7 @@ const MENU=[
 ['Bebidas',[['Café americano',1.5],['Café con leche',1.8],['Chocolate',2.5],['Té',1.5],['Agua',0.8],['Agua mineral',1],['Jugos naturales',1],['Gaseosa',1.5]]],
 ['Postres',[['Tiramisú',3],['Galletas',0.75]]]
 ];
-const TOGO=['Corviches','Pastelillos','Pan de almidón','Tortillas de maíz'].map(n=>[n,6,'Paquete · bajo pedido']);
+const TOGO=[['Corviches','foto-corviches.jpg'],['Pastelillos','foto-pastelillos.jpg'],['Pan de almidón','foto-pan-almidon.jpg'],['Tortillas de maíz','foto-tortillas-maiz.jpg']].map(a=>[a[0],6,'Paquete · bajo pedido',a[1]]);
 const cart={menu:{},togo:{}};
 const $=s=>document.querySelector(s);
 const money=n=>'$'+n.toFixed(2);
@@ -180,7 +185,7 @@ let curCat=0;
 
 function rowHTML(t,id,it){
  const q=(cart[t][id]||{}).q||0;
- return `<div class="row"><div class="n">${it[0]}${t=='togo'?'<span class="tag">Bajo pedido</span>':''}${it[2]?`<small>${it[2]}</small>`:''}</div><span class="p">${money(it[1])}</span>`+
+ return `<div class="row">${it[3]?`<img class="th" src="${it[3]}" alt="${it[0]}" loading="lazy">`:''}<div class="n">${it[0]}${t=='togo'?'<span class="tag">Bajo pedido</span>':''}${it[2]?`<small>${it[2]}</small>`:''}</div><span class="p">${money(it[1])}</span>`+
  (q?`<div class="q"><button onclick="chg('${t}','${id}',-1)" aria-label="Quitar">−</button><b>${q}</b><button onclick="chg('${t}','${id}',1)" aria-label="Agregar">+</button></div>`:`<button class="add" onclick="chg('${t}','${id}',1)">Agregar</button>`)+`</div>`;
 }
 const ITEMS={};
